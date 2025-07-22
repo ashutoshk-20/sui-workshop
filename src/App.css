@@ -1,142 +1,152 @@
-/* loyaltycard.css */
-
-/* 1. Dark Mode Variables */
-:root {
-  --bg-color: #121212;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --text-color: #e0e0e0;
-  --accent-color: #ff6f61;
-  --input-bg: rgba(255, 255, 255, 0.10);
-  --shadow-color: rgba(0, 0, 0, 0.7);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    /* Optional: override for light mode */
-    --bg-color: #f5f5f5;
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --text-color: #333333;
-    --accent-color: #0077cc;
-    --input-bg: rgba(0, 0, 0, 0.05);
-    --shadow-color: rgba(0, 0, 0, 0.15);
-  }
-}
-
-/* 2. Global Reset & Base Styles */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Global Reset & Font */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* Body Styles */
 body {
-  background: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem;
+    background-color: #1a1a1a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh;
+    padding: 2rem;
 }
 
-/* 3. Container & Typography */
-.container {
-  width: 100%;
-  max-width: 480px;
-  backdrop-filter: blur(12px);
-  background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px var(--shadow-color);
-  padding: 2rem;
+/* Main container for the entire page content */
+.loyalty-card-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 2rem; /* Space between header and main content */
 }
 
-h1, h2 {
-  margin-bottom: 1rem;
-  letter-spacing: 0.5px;
+/* App Header */
+.app-header {
+    width: 100%;
+    max-width: 500px; /* Slightly smaller width */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: #242424;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-h1 {
-  font-size: 2rem;
-  text-align: center;
+.app-header h1 {
+    font-size: 1.25rem; /* Smaller header font */
+    margin: 0;
 }
 
-h2 {
-  font-size: 1.25rem;
-  margin-top: 1.5rem;
+/* Main Content Area */
+.app-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-/* 4. Forms & Inputs */
-.form-section {
-  margin-top: 1.5rem;
+/* Card Styles */
+.card {
+    background: #242424;
+    padding: 2rem 2.5rem; /* More horizontal padding */
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
+.card h2 {
+    text-align: center;
+    font-size: 1.75rem; /* Slightly smaller */
+    margin-bottom: 0.75rem;
+    color: #a9a9ff; /* Lighter purple */
 }
 
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-  width: 100%;
-  background: var(--input-bg);
-  color: var(--text-color);
-  border: none;
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+.subtitle {
+    text-align: center;
+    margin-bottom: 2.5rem; /* More space after subtitle */
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--accent-color);
-  transform: translateY(-2px);
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.25rem; /* Tighter spacing */
 }
 
-/* 5. Buttons */
-button {
-  display: block;
-  width: 100%;
-  background: var(--accent-color);
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.form-group input {
+    width: 100%;
+    padding: 0.8rem 1rem; /* Adjust padding */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: #1c1c1c; /* Slightly different bg */
+    color: white;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-button:not(:disabled):hover {
-  background: lighten(var(--accent-color), 10%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px var(--shadow-color);
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
 }
 
-/* 6. Accessibility & Performance */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    transition: none !important;
-  }
+.form-group input:focus {
+    outline: none;
+    border-color: #646cff;
+    box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.25);
+}
+
+/* Button Styles */
+.mint-button {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none; /* Removed border */
+    background-color: #646cff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 2rem; /* Add space above button */
+}
+
+.mint-button:hover:not(:disabled) {
+    background-color: #535bf2;
+}
+
+.mint-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.mint-button:disabled {
+    background-color: #333;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+}
+
+/* Wallet Connector Styles */
+.wallet-connector {
+    /* No changes needed as per request */
 }

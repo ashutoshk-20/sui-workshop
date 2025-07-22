@@ -30,18 +30,32 @@ const LoyaltyCardPage = () => {
       alert('Please connect your wallet');
       return;
     }
+    if (!packageId) {
+        alert('Please enter the Package ID');
+        return;
+    }
     try {
       setLoading(true);
       const tx = new Transaction();
       tx.moveCall({
-        target: "${packageId}::loyalty_card::mint_loyalty",
+        target: `${packageId}::loyalty_card::mint_loyalty`,
         arguments: [
           tx.pure.address(mintForm.customerId),
           tx.pure.string(mintForm.imageUrl)
         ]
       });
-      await signAndExecute({ transaction: tx });
-      setMintForm({ customerId: '', imageUrl: '' });
+      // Not awaiting the result of signAndExecute on purpose.
+      // The state update will be handled by the wallet adapter.
+      signAndExecute({ transaction: tx }, {
+        onSuccess: () => {
+            alert('Minted successfully!');
+            setMintForm({ customerId: '', imageUrl: '' });
+        },
+        onError: (error) => {
+            console.error('Error minting loyalty card:', error);
+            alert(`Minting failed: ${error.message}`);
+        }
+      });
     } catch (error) {
       console.error('Error minting loyalty card:', error);
       alert(`Minting failed: ${error.message}`);
@@ -51,49 +65,68 @@ const LoyaltyCardPage = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Mint Your NFT on SUI</h1>
-      <ConnectButton />
+    <div className="loyalty-card-page">
+      <header className="app-header">
+        <h1>NFT Minting on SUI</h1>
+        <div className="wallet-connector">
+          <ConnectButton />
+        </div>
+      </header>
 
-      <div className="package-input">
-        <label>Package ID</label>
-        <input
-          type="text"
-          value={packageId}
-          onChange={(e) => setPackageId(e.target.value)}
-          placeholder="Enter Package ID"
-        />
-      </div>
+      <main className="app-main">
+        <div className="card">
+          <h2>Mint Your Loyalty NFT</h2>
+          <p className="subtitle">Fill in the details below to create your unique NFT.</p>
 
-      {/* Mint Loyalty Card */}
-      <section className="form-section">
-        <label>Wallet Address</label>
-        <input
-          type="text"
-          name="customerId"
-          value={mintForm.customerId}
-          onChange={handleMintChange}
-          placeholder="Enter Customer Sui Address"
-        />
-        <label>Image URL</label>
-        <input
-          type="text"
-          name="imageUrl"
-          value={mintForm.imageUrl}
-          onChange={handleMintChange}
-          placeholder="Enter Image URL"
-        />
-        <button 
-          onClick={mintLoyalty} 
-          disabled={
-            loading || 
-            !mintForm.customerId.trim() || 
-            !mintForm.imageUrl.trim()
-          }
-        >
-          Mint your NFT
-        </button>
-      </section>
+          <div className="form-group">
+            <label htmlFor="packageId">Package ID</label>
+            <input
+              id="packageId"
+              type="text"
+              value={packageId}
+              onChange={(e) => setPackageId(e.target.value)}
+              placeholder="Enter the on-chain package ID"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="customerId">Recipient Address</label>
+            <input
+              id="customerId"
+              type="text"
+              name="customerId"
+              value={mintForm.customerId}
+              onChange={handleMintChange}
+              placeholder="Enter the recipient's SUI address"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="imageUrl">Image URL</label>
+            <input
+              id="imageUrl"
+              type="text"
+              name="imageUrl"
+              value={mintForm.imageUrl}
+              onChange={handleMintChange}
+              placeholder="http://example.com/image.png"
+            />
+          </div>
+
+          <button
+            className="mint-button"
+            onClick={mintLoyalty}
+            disabled={
+              loading ||
+              !packageId.trim() ||
+              !mintForm.customerId.trim() ||
+              !mintForm.imageUrl.trim()
+            }
+          >
+            {loading ? 'Minting...' : 'Mint NFT'}
+          </button>
+        </div>
+      </main>
     </div>
   );
 };
