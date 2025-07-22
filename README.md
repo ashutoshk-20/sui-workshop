@@ -1,12 +1,54 @@
-# React + Vite
+# SUI NFT Minting DApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based decentralized application for minting loyalty NFTs on the SUI blockchain.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Connect your SUI wallet
+- Mint unique loyalty NFTs by providing recipient address and image URL
+- Preview your NFT before minting
 
-## Expanding the ESLint configuration
+## Screenshots
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Minting Form](public/ss.png)
+*Mint your loyalty NFT by entering the required details.*
+
+![NFT Preview](public/ss2.png)
+*Preview your NFT before minting.*
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- npm
+
+### Installation
+
+```sh
+npm install
+```
+
+### Running Locally
+
+```sh
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## Usage
+
+1. Connect your SUI wallet using the Connect button.
+2. Enter the on-chain Package ID, recipient SUI address, and image URL.
+3. Preview your NFT.
+4. Click "Mint NFT" to mint your loyalty card on SUI.
+
+## Tech Stack
+
+- React
+- Vite
+- @mysten/dapp-kit
+- SUI blockchain
+
+##
