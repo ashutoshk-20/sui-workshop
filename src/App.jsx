@@ -72,59 +72,75 @@ const LoyaltyCardPage = () => {
           <ConnectButton />
         </div>
       </header>
+      <p className="catchphrase">Your digital identity, secured on the blockchain.</p>
 
       <main className="app-main">
-        <div className="card">
-          <h2>Mint Your Loyalty NFT</h2>
-          <p className="subtitle">Fill in the details below to create your unique NFT.</p>
+        <div className="minting-container">
+          <div className="card">
+            <h2>Mint Your Loyalty NFT</h2>
+            <p className="subtitle">Fill in the details below to create your unique NFT.</p>
 
-          <div className="form-group">
-            <label htmlFor="packageId">Package ID</label>
-            <input
-              id="packageId"
-              type="text"
-              value={packageId}
-              onChange={(e) => setPackageId(e.target.value)}
-              placeholder="Enter the on-chain package ID"
-            />
+            <div className="form-group">
+              <label htmlFor="packageId">Package ID</label>
+              <input
+                id="packageId"
+                type="text"
+                value={packageId}
+                onChange={(e) => setPackageId(e.target.value)}
+                placeholder="Enter the on-chain package ID"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="customerId">Recipient Address</label>
+              <input
+                id="customerId"
+                type="text"
+                name="customerId"
+                value={mintForm.customerId}
+                onChange={handleMintChange}
+                placeholder="Enter the recipient's SUI address"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="imageUrl">Image URL</label>
+              <input
+                id="imageUrl"
+                type="text"
+                name="imageUrl"
+                value={mintForm.imageUrl}
+                onChange={handleMintChange}
+                placeholder="http://example.com/image.png"
+              />
+            </div>
+
+            <button
+              className="mint-button"
+              onClick={mintLoyalty}
+              disabled={
+                loading ||
+                !packageId.trim() ||
+                !mintForm.customerId.trim() ||
+                !mintForm.imageUrl.trim()
+              }
+            >
+              {loading ? 'Minting...' : 'Mint NFT'}
+            </button>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="customerId">Recipient Address</label>
-            <input
-              id="customerId"
-              type="text"
-              name="customerId"
-              value={mintForm.customerId}
-              onChange={handleMintChange}
-              placeholder="Enter the recipient's SUI address"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="imageUrl">Image URL</label>
-            <input
-              id="imageUrl"
-              type="text"
-              name="imageUrl"
-              value={mintForm.imageUrl}
-              onChange={handleMintChange}
-              placeholder="http://example.com/image.png"
-            />
-          </div>
-
-          <button
-            className="mint-button"
-            onClick={mintLoyalty}
-            disabled={
-              loading ||
-              !packageId.trim() ||
-              !mintForm.customerId.trim() ||
-              !mintForm.imageUrl.trim()
-            }
-          >
-            {loading ? 'Minting...' : 'Mint NFT'}
-          </button>
+          {mintForm.imageUrl && (
+            <div className="nft-preview-card">
+              <div className="nft-image-container">
+                <img src={mintForm.imageUrl} alt="NFT Preview" className="nft-image" />
+                <div className="glossy-sheen"></div>
+              </div>
+              <div className="nft-info">
+                <p className="nft-recipient-label">Recipient:</p>
+                <p className="nft-recipient-address">{mintForm.customerId || 'SUI Address'}</p>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>

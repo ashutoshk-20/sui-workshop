@@ -19,7 +19,7 @@ body {
     color: white;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align to top */
+    align-items: center; /* Center vertically */
     min-height: 100vh;
     padding: 2rem;
 }
@@ -30,25 +30,38 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 2rem; /* Space between header and main content */
+    gap: 1.5rem; /* Reduced gap */
 }
 
 /* App Header */
 .app-header {
     width: 100%;
-    max-width: 500px; /* Slightly smaller width */
+    max-width: 500px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    padding: 1rem 1.5rem;
+    gap: 1rem;
+    padding: 1.5rem;
     background: #242424;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .app-header h1 {
-    font-size: 1.25rem; /* Smaller header font */
+    font-size: 1.75rem; /* Increased font size */
+    font-weight: 600;
+    color: #c5c5ff; /* Brighter purple */
     margin: 0;
+}
+
+/* Catchphrase Styles */
+.catchphrase {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    margin-top: -0.5rem; /* Adjusted margin-top */
+    margin-bottom: 1.5rem; /* Adjusted margin-bottom */
 }
 
 /* Main Content Area */
@@ -58,10 +71,17 @@ body {
     justify-content: center;
 }
 
+/* Minting Container */
+.minting-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
 /* Card Styles */
 .card {
     background: #242424;
-    padding: 2rem 2.5rem; /* More horizontal padding */
+    padding: 2rem 2.5rem;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     width: 100%;
@@ -71,21 +91,21 @@ body {
 
 .card h2 {
     text-align: center;
-    font-size: 1.75rem; /* Slightly smaller */
+    font-size: 1.75rem;
     margin-bottom: 0.75rem;
-    color: #a9a9ff; /* Lighter purple */
+    color: #a9a9ff;
 }
 
 .subtitle {
     text-align: center;
-    margin-bottom: 2.5rem; /* More space after subtitle */
+    margin-bottom: 2.5rem;
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
 }
 
 /* Form Styles */
 .form-group {
-    margin-bottom: 1.25rem; /* Tighter spacing */
+    margin-bottom: 1.25rem;
 }
 
 .form-group label {
@@ -98,10 +118,10 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 0.8rem 1rem; /* Adjust padding */
+    padding: 0.8rem 1rem;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    background-color: #1c1c1c; /* Slightly different bg */
+    background-color: #1c1c1c;
     color: white;
     font-size: 0.95rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -124,12 +144,12 @@ body {
     font-size: 1rem;
     font-weight: 600;
     border-radius: 8px;
-    border: none; /* Removed border */
+    border: none;
     background-color: #646cff;
     color: white;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    margin-top: 2rem; /* Add space above button */
+    margin-top: 1.5rem; /* Reduced margin-top */
 }
 
 .mint-button:hover:not(:disabled) {
@@ -148,5 +168,76 @@ body {
 
 /* Wallet Connector Styles */
 .wallet-connector {
-    /* No changes needed as per request */
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+/* NFT Preview Card */
+.nft-preview-card {
+    background: #242424;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* For 3D effect */
+}
+
+.nft-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.nft-preview-card:hover .nft-image-container {
+    transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+}
+
+.nft-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.glossy-sheen {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: left 0.5s ease;
+}
+
+.nft-preview-card:hover .glossy-sheen {
+    left: 150%;
+}
+
+.nft-info {
+    margin-top: 1rem;
+}
+
+.nft-recipient-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.25rem;
+}
+
+.nft-recipient-address {
+    font-size: 0.9rem;
+    color: white;
+    word-wrap: break-word;
 }
